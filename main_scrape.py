@@ -16,13 +16,13 @@ args = parser.parse_args()
 start_mmddyyyy = args.start_mmddyyyy
 end_mmddyyyy = args.end_mmddyyyy
 
-selenium_filepath = "C:\GIT\SELENIUM_DRIVERS\chromedriver_win32\chromedriver.exe"
+chromedriver_filepath = "C:\GIT\SELENIUM_DRIVERS\chromedriver_win32\chromedriver.exe"
 save_root_dir = './Minutes'
 
 url = "https://www.federalreserve.gov/monetarypolicy/materials/"
 
-def prepare_resources_for_scraping(selenium_filepath, url, start_mmddyyyy, end_mmddyyyy, scrape_target='minutes'):
-    driver = webdriver.Chrome(selenium_filepath)
+def prepare_resources_for_scraping(chromedriver_filepath, url, start_mmddyyyy, end_mmddyyyy, scrape_target='minutes'):
+    driver = webdriver.Chrome(chromedriver_filepath)
     driver.get(url)
     time.sleep(5)
     
@@ -117,7 +117,7 @@ def remove_doublespaces(document):
 
 if __name__ == '__main__':
     
-    driver, pagination, largest_page = prepare_resources_for_scraping(selenium_filepath, url, start_mmddyyyy, end_mmddyyyy)
+    driver, pagination, largest_page = prepare_resources_for_scraping(chromedriver_filepath, url, start_mmddyyyy, end_mmddyyyy)
     statement_url_list, meeting_date_list, document_date_list = scrape_URLs_and_meeting_dates_and_document_dates(driver, pagination, largest_page)
         
     doc_count = 0
