@@ -14,7 +14,7 @@ python main_scrape.py --start_mmddyyyy "01/01/1990" --end_mmddyyyy "01/25/2023"
 | :----------------- | :--- | :------------------------------------------------------------------ |
 | start\_mmddyyyy    | str  | "01/01/1990"                                                        |
 | end\_mmddyyyy      | str  | "01/25/2023"                                                        |
-| selenium\_filepath | str  | "C:\\GIT\\SELENIUM\_DRIVERS\\chromedriver\_win32\\chromedriver.exe" |
+| chromedriver\_filepath | str  | "C:\\GIT\\SELENIUM\_DRIVERS\\chromedriver\_win32\\chromedriver.exe" |
 | save\_root\_dir    | str  | "./Minutes"                                                      |
 
 ### Output 
