@@ -39,5 +39,5 @@ python main.py --start_mmddyyyy "01/01/1993" --end_mmddyyyy "07/01/2023" --inser
 | save\_temp\_dir    | str  | "./Temp"                                                      |
 
 ## Error Handling
-* If an error occurs, the case is saved in the `Minutes/raw/errors.csv` file.
+* If an error occurs, the case is saved in the `ScrapingErrors.csv` file.
 * After checking this file, handle the errors one by one.
