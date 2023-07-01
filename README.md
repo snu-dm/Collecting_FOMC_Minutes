@@ -1,13 +1,34 @@
 # Collecting FOMC Minutes
 
+* For additional information, please contact us using the email addresses provided below.
+    - jihyeparkk@bdai.snu.ac.kr 
+    - hjkim@bdai.snu.ac.kr
+
 * Reference
     - Scraping: https://github.com/tengtengtengteng/Webscraping-FOMC-Statements
     - Data source: https://www.federalreserve.gov/monetarypolicy/materials/
+    
+## Guidelines for SNU BDAI members only
+* **Chrome Driver**를 알맞은 버전으로 다운로드 받은 후 Chrome Driver의 파일 경로를 `main.py` 파일 내 `chromedriver_filepath`에 입력해주세요.
+* `config.py` 파일에 정보를 입력하여 `main_scrape_and_remove_stop_phrases.py`와 같은 위치에 저장해주세요.
+    * `config.py`
+```bash
+dialect = ''
+host = ''
+port = ''
+user = ''
+pw = ''
+db = ''
+minio_api_endpoint = ''
+```
 
-## Command line
+* DB 적재를 위해 다음과 같은 커맨드를 실행해주세요. 
+```bash
+python main.py --start_mmddyyyy "01/01/1993" --end_mmddyyyy "07/01/2023" --insert_into_NRFDB "True"
 ```
-python main_scrape.py --start_mmddyyyy "01/01/1990" --end_mmddyyyy "01/25/2023"
-```
+
+## Overview
+![overview](./assets/overview.png)
 
 ### Input
 | Variable           | Type | Example                                                             |
@@ -15,44 +36,8 @@ python main_scrape.py --start_mmddyyyy "01/01/1990" --end_mmddyyyy "01/25/2023"
 | start\_mmddyyyy    | str  | "01/01/1990"                                                        |
 | end\_mmddyyyy      | str  | "01/25/2023"                                                        |
 | chromedriver\_filepath | str  | "C:\\GIT\\SELENIUM\_DRIVERS\\chromedriver\_win32\\chromedriver.exe" |
-| save\_root\_dir    | str  | "./Minutes"                                                      |
-
-### Output 
-* One text file contains information regarding a meeting date, document date, and document.
-* The following shows the directory structure where the scraped and processed documents are stored.
-```
-├── main_scrape.py
-├── Minutes
-│   ├── raw
-│        ├── 1993
-│             ├── 19940326.txt  # The filename indicates the date that the statements was uploaded on the website. `document_date`
-│             │					# The first line of the file indicates the date the meeting was held. `meeting_date`
-│             │					# The remainder of the file is the FOMC statement. `document`
-│             ├── 19930521.txt
-│             ├── ...
-│        ├── 1994
-│             ├── 19940204.txt
-│             ├── ...
-│        ├── ...
-```
-
-* Example of raw documents (raw/2023/20230104.txt)
-```
-1. The Federal Open Market Committee is referenced as the "FOMC" and the "Committee" in these minutes; the Board of Governors of the Federal Reserve System is referenced as the "Board" in these minutes. Return to text 2. Attended through the discussion of developments in financial markets and open market operations. Return to text 3. Attended Tuesday's session only.
-```
+| save\_temp\_dir    | str  | "./Temp"                                                      |
 
 ## Error Handling
 * If an error occurs, the case is saved in the `Minutes/raw/errors.csv` file.
 * After checking this file, handle the errors one by one.
-  - `Scrape_items_in_errors.csv.ipynb`
-
-*****
-
-# Preprocessing (Work In Progress)
-
-* Related file: `Numbered_list_removal.ipynb`
-
-* Example of processed documents (no-numbered-list/2023/20230104.txt)
-```
-Federal Open Market Committee is referenced as the "FOMC" and the "Committee" in these minutes; the Board of Governors of the Federal Reserve System is referenced as the "Board" in these minutes. Return to text  Attended through the discussion of developments in financial markets and open market operations. Return to text  Attended Tuesday's session only. Return to text  Attended opening remarks for Tuesday's session only. 
-```
